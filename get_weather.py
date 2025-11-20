@@ -133,11 +133,9 @@ while is_running is True:
             if message["content"]:
                 print(message["content"])
 
-        # Save chat completions messages for subsequent requests
-        for choice in response.choices:
-            messages.append(choice.message.to_dict())
-
         print("\nFinal output:")
+        # Print output and save chat completions messages for subsequent requests
         for choice in response.choices:
             print(choice.message.content)
+            messages.append(choice.message.to_dict())
         print("\n")
