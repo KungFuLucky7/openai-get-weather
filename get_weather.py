@@ -70,7 +70,7 @@ print("Welcome to the Weather AI Assistant!")
 print(
     "Please enter a question with city and country for the location "
     "you want to ask about the weather, e.g., "
-    '"What\'s the weather like in San Francisco, United States?"'
+    '"What\'s the weather like in San Francisco, United States?".'
 )
 print('Type "exit" to quit.')
 
@@ -124,16 +124,14 @@ while is_running is True:
 
         response = client.chat.completions.create(model="gpt-5", messages=messages)
 
-        # Save function call outputs for subsequent requests
-        for choice in response.choices:
-            messages.append(choice.message.to_dict())
-
         # 5. The model should be able to give a response!
         print("\nFinal output debug log:")
         print(response.to_json())
 
         print("\nFinal input:")
-        print(messages[0]["content"])
+        for message in messages:
+            if message["content"]:
+                print(message["content"])
         print("\nFinal output:")
         for choice in response.choices:
             print(choice.message.content)
