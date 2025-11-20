@@ -92,14 +92,14 @@ while is_running is True:
             tools=tools,
             tool_choice="auto",  # auto is default, but we'll be explicit
         )
-        print("Initial response JSON for the prompt with tools defined:")
-        print(response.to_json())
 
         # Save function call messages for subsequent requests
         for choice in response.choices:
-            messages.append(choice.message.to_dict())
-
             if choice.message.tool_calls:
+                print("Initial response JSON for the prompt with tools defined:")
+                print(response.to_json())
+
+                messages.append(choice.message.to_dict())
                 for item in choice.message.tool_calls:
                     if item.type == "function":
                         if item.function.name == "get_weather":
@@ -132,6 +132,11 @@ while is_running is True:
         for message in messages:
             if message["content"]:
                 print(message["content"])
+
+        # Save chat completions messages for subsequent requests
+        for choice in response.choices:
+            messages.append(choice.message.to_dict())
+
         print("\nFinal output:")
         for choice in response.choices:
             print(choice.message.content)
