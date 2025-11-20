@@ -133,7 +133,7 @@ while is_running is True:
         print(response.to_json())
 
         print("\nFinal input:")
-        print(messages[-1]["content"])
+        print(messages[0]["content"])
         print("\nFinal output:")
         for choice in response.choices:
             print(choice.message.content)
